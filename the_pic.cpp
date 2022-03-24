@@ -37,7 +37,7 @@ void getContours(Mat imgDil, Mat img)
 		}
 	}
 }
-
+//必须根据实际对区域面积进行实际的预测，不断逼近，从而得到效果最理想的阈值。//
 void guessNumber(Mat imgDil)
 {
 	vector<vector<Point>> contours;
@@ -47,7 +47,7 @@ void guessNumber(Mat imgDil)
 	vector<Rect> boundRect(contours.size());
 
 	for (int i = 0; i < contours.size(); i++) {
-		int area = contourArea(contours[i]);
+		int area = contourArea(contours[i]);//笔画独立的分类//
 		if (0 < area&&area<350) 
 		{
 			cout << "1" ;
@@ -171,11 +171,11 @@ void guessNumber(Mat imgDil)
 
 int main()
 {
-	Mat image = imread("pic.jpg");
+	Mat image = imread("pic.jpg");//照片存放路径//
 	Mat grey;
 	Mat bin;
 	cvtColor(image, grey, COLOR_BGR2GRAY);
-	threshold(grey, bin, 100, 255, THRESH_BINARY_INV);
+	threshold(grey, bin, 100, 255, THRESH_BINARY_INV);//二值化处理//
 	namedWindow("img", 0);
 	resizeWindow("img", image.size() );
 	imshow("img", bin);
@@ -184,7 +184,7 @@ int main()
 	dilate(bin, image_dil, element);
 	imshow("image_dil", image_dil);
 	getContours(image_dil, image);
-	
+	//切割的矩形的位置与大小//
 	Mat re1,re2,re3,re4;
 	Rect Re1(13, 3, 30, 70);
 	Rect Re2(43, 3, 30, 70);
